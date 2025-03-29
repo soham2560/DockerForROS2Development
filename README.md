@@ -11,6 +11,8 @@ The following Docker images are available:
 *   `iron`: Based on `ubuntu:jammy`, this image includes ROS 2 Iron Irwini packages and a non-root user.
 *   `iron-garden`: Extends the `iron` image and includes Gazebo Garden.
 
+**Important Note:** The `iron` and `iron-garden` images are currently **under development** and have not been heavily tested.  They may be unstable or contain significant bugs.
+
 ## Usage
 
 ### 1. Pulling an Image
