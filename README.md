@@ -60,6 +60,14 @@ docker push ghcr.io/soham2560/<image_name>:latest
 
 **Note:**  You need to be authenticated with `ghcr.io` and have the appropriate permissions to push images to the `soham2560` repository.
 
+## Usage Examples
+
+The following repositories demonstrate how to use these Docker images in real-world ROS 2 projects with Dev Containers:
+
+*   **[LiDAR_Camera_Calibration](https://github.com/soham2560/LiDAR_Camera_Calibration)**: This repository demonstrates a LiDAR-Camera calibration process within a ROS 2 environment. It utilizes a Dev Container configured with the `humble` image for consistent development and execution. You can find the devcontainer configuration inside the `.devcontainer` folder.
+
+*   **[6DOF_ObjectFollowing](https://github.com/soham2560/6DOF_ObjectFollowing)**: This repository implements a 6-DOF object following system using ROS 2. It leverages a Dev Container, making use of the `humble-garden` image.  The project can be directly opened inside a container for immediate building and debugging. The set up is defined inside `.devcontainer`.
+
 ## Contributing
 
 Contributions to this project are welcome!  If you have improvements or suggestions, please submit a pull request.
