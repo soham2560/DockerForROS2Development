@@ -62,11 +62,13 @@ docker push ghcr.io/soham2560/<image_name>:latest
 
 ## Usage Examples
 
-The following repositories demonstrate how to use these Docker images in real-world ROS 2 projects with Dev Containers:
+The following repositories demonstrate how to use these Docker images in real-world ROS 2 projects with Dev Containers.  Each repository includes a `.devcontainer` folder for easy setup.
 
-*   **[LiDAR_Camera_Calibration](https://github.com/soham2560/LiDAR_Camera_Calibration)**: This repository demonstrates a LiDAR-Camera calibration process within a ROS 2 environment. It utilizes a Dev Container configured with the `humble` image for consistent development and execution. You can find the devcontainer configuration inside the `.devcontainer` folder.
+*   **[LiDAR_Camera_Calibration](https://github.com/soham2560/LiDAR_Camera_Calibration)**: Demonstrates LiDAR-Camera calibration in ROS 2 using the `humble` image within a Dev Container.
 
-*   **[6DOF_ObjectFollowing](https://github.com/soham2560/6DOF_ObjectFollowing)**: This repository implements a 6-DOF object following system using ROS 2. It leverages a Dev Container, making use of the `humble-garden` image.  The project can be directly opened inside a container for immediate building and debugging. The set up is defined inside `.devcontainer`.
+*   **[6DOF_ObjectFollowing](https://github.com/soham2560/6DOF_ObjectFollowing)**: Implements a 6-DOF object following system using ROS 2 and the `humble-garden` image within a Dev Container.
+
+*   **[ros2_tutorial_repo](https://github.com/soham2560/ros2_tutorial_repo)**: A basic ROS 2 tutorial repository demonstrating fundamental concepts, configured with the `humble` image within a Dev Container.
 
 ## Contributing
 
