@@ -13,19 +13,20 @@ LABEL org.opencontainers.image.vendor="Tarun R"
 LABEL org.opencontainers.image.source="https://github.com/rtarun1/DockerForROS2Development"
 LABEL maintainer="tarun.ramak@gmail.com"
 LABEL org.opencontainers.image.licenses="MIT"
+# handle default shell
+SHELL ["/bin/bash", "-c"]
+ENV SHELL=/bin/bash
 
+# setup timezone
+RUN echo 'Asia/Kolkata' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# install bootstrap tools
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    build-essential \
-    python3-rosdep \
-    python3-rosinstall \
-    python3-vcstools \
     && rm -rf /var/lib/apt/lists/*
 
 # setup keys
@@ -54,15 +55,25 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 USER $USERNAME
 
-ENV ROS_DISTRO $ROS_DISTRO
-
-RUN sudo rosdep init && \
-    rosdep update --rosdistro $ROS_DISTRO
+ENV ROS_DISTRO=$ROS_DISTRO
 
 # install ros packages
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop-full=1.5.0-1* \
-    && rm -rf /var/lib/apt/lists/*
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# install bootstrap tools
+RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
+    build-essential \
+    python3-rosdep \
+    python3-rosinstall \
+    python3-vcstools \
+    git \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# bootstrap rosdep
+RUN sudo rosdep init && \
+    rosdep update --rosdistro $ROS_DISTRO
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
