@@ -1,0 +1,64 @@
+FROM ubuntu:focal
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS_DISTRO=noetic
+
+# Set locale to US English
+RUN apt update && apt install -y locales \
+    && locale-gen en_US en_US.UTF-8 \
+    && update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+
+# Set timezone automatically to Asia/Kolkata (modify if needed)
+RUN apt install -y tzdata \
+    && ln -fs /usr/share/zoneinfo/Asia/Kolkata /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata
+
+# Install software-properties-common and add universe repository
+RUN apt install -y software-properties-common \
+    && add-apt-repository universe
+
+# Enable restricted and multiverse repositories
+RUN add-apt-repository restricted \
+    && add-apt-repository multiverse
+
+# Update package list and install curl
+RUN apt update && apt install -y curl
+
+# Add the ROS 1 key
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+
+# Add the ROS 1 repository
+RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list
+
+# Update package list and upgrade packages
+RUN apt update && apt upgrade -y
+
+# Install ROS 1 packages
+RUN apt install -y ros-noetic-desktop-full python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+
+# Initialize rosdep
+RUN rosdep init && rosdep update
+
+# Source ROS 1 setup script and add to bashrc
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+
+# Create non-root user 'rosusr' with sudo privileges
+ARG USERNAME=rosusr
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Switch to the new user
+USER $USERNAME
+
+# Add metadata labels
+LABEL maintainer="https://github.com/Srindot"
+LABEL org.opencontainers.image.source="https://github.com/Srindot"
+
+# Setup entrypoint
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]
