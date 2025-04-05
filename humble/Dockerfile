@@ -2,7 +2,7 @@ FROM ubuntu:jammy
 
 # basic args
 ARG ROS_DISTRO=humble
-ARG USERNAME=sivan2560
+ARG USERNAME=container_user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -33,13 +33,13 @@ RUN apt-get update && apt-get install -q -y --no-install-recommends \
 
 # setup keys
 RUN set -eux; \
-       key='C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654'; \
-       export GNUPGHOME="$(mktemp -d)"; \
-       gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
-       mkdir -p /usr/share/keyrings; \
-       gpg --batch --export "$key" > /usr/share/keyrings/ros2-latest-archive-keyring.gpg; \
-       gpgconf --kill all; \
-       rm -rf "$GNUPGHOME"
+    key='C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654'; \
+    export GNUPGHOME="$(mktemp -d)"; \
+    gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
+    mkdir -p /usr/share/keyrings; \
+    gpg --batch --export "$key" > /usr/share/keyrings/ros2-latest-archive-keyring.gpg; \
+    gpgconf --kill all; \
+    rm -rf "$GNUPGHOME"
 
 # setup sources.list
 RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] http://packages.ros.org/ros2/ubuntu jammy main" > /etc/apt/sources.list.d/ros2-latest.list
@@ -83,18 +83,18 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
 
 # bootstrap rosdep
 RUN sudo rosdep init && \
-  rosdep update --rosdistro $ROS_DISTRO
+    rosdep update --rosdistro $ROS_DISTRO
 
 # setup colcon mixin and metadata
 RUN sudo colcon mixin add default \
-      https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
+    https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
     sudo colcon mixin update && \
     sudo colcon metadata add default \
-      https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
+    https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
     sudo colcon metadata update
 
 RUN sudo pip3 install -U \
-argcomplete
+    argcomplete
 
 # echo sources
 RUN echo 'source /usr/share/bash-completion/bash_completion' | sudo tee -a ~/.bashrc > /dev/null && \
