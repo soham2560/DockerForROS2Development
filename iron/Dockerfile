@@ -2,7 +2,7 @@ FROM ubuntu:jammy
 
 # basic args
 ARG ROS_DISTRO=iron
-ARG USERNAME=sivan2560
+ARG USERNAME=container_user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -83,18 +83,18 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
 
 # bootstrap rosdep
 RUN sudo rosdep init && \
-  rosdep update --rosdistro $ROS_DISTRO
+    rosdep update --rosdistro $ROS_DISTRO
 
 # setup colcon mixin and metadata
 RUN sudo colcon mixin add default \
-      https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
+    https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && \
     sudo colcon mixin update && \
     sudo colcon metadata add default \
-      https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
+    https://raw.githubusercontent.com/colcon/colcon-metadata-repository/master/index.yaml && \
     sudo colcon metadata update
 
 RUN sudo pip3 install -U \
-argcomplete
+    argcomplete
 
 # echo sources
 RUN echo 'source /usr/share/bash-completion/bash_completion' | sudo tee -a ~/.bashrc > /dev/null && \
