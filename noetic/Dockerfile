@@ -2,15 +2,15 @@ FROM ubuntu:focal
 
 # basic args
 ENV ROS_DISTRO=noetic
-ARG USERNAME=user
+ARG USERNAME=container_user
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Add the following labels
-LABEL org.opencontainers.image.description="Docker Development Container"
-LABEL org.opencontainers.image.title="ROS1Dev"
+LABEL org.opencontainers.image.description="ROS1 Development Container"
+LABEL org.opencontainers.image.title="ROS1DevCon"
 LABEL org.opencontainers.image.vendor="Tarun R"
-LABEL org.opencontainers.image.source="https://github.com/rtarun1/DockerForROS2Development"
+LABEL org.opencontainers.image.source="https://github.com/soham2560/DockerForROS2Development"
 LABEL maintainer="tarun.ramak@gmail.com"
 LABEL org.opencontainers.image.licenses="MIT"
 # handle default shell
@@ -57,10 +57,14 @@ USER $USERNAME
 
 ENV ROS_DISTRO=$ROS_DISTRO
 
-# install ros packages
+# install ros1 packages
 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop-full=1.5.0-1* \
     && sudo rm -rf /var/lib/apt/lists/*
+
+# setup entrypoint
+COPY ./ros_entrypoint.sh /
+ENTRYPOINT ["/ros_entrypoint.sh"]
 
 # install bootstrap tools
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
@@ -75,8 +79,4 @@ RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
 RUN sudo rosdep init && \
     rosdep update --rosdistro $ROS_DISTRO
 
-# setup entrypoint
-COPY ./ros_entrypoint.sh /
-
-ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" | sudo tee -a ~/.bashrc > /dev/null
