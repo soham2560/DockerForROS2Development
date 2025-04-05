@@ -1,6 +1,6 @@
-# Docker Images for ROS 2 Development
+# Docker Images for ROS Development
 
-This repository provides Docker images designed to simplify ROS 2 development.  These images come pre-configured with the necessary ROS 2 packages and tools, allowing you to get started with your robotics projects quickly and efficiently.
+This repository provides Docker images designed to simplify ROS 2 and ROS 1 development.  These images come pre-configured with the necessary ROS packages and tools, allowing you to get started with your robotics projects quickly and efficiently.
 
 ## Available Images
 
@@ -10,6 +10,7 @@ The following Docker images are available:
 *   `humble-garden`:  Extends the `humble` image and includes Gazebo Garden, a powerful 3D robotics simulator.
 *   `iron`: Based on `ubuntu:jammy`, this image includes ROS 2 Iron Irwini packages and a non-root user.
 *   `iron-garden`: Extends the `iron` image and includes Gazebo Garden.
+*   `noetic`: Based on `ubuntu:focal`, this image includes ROS Noetic Ninjemys packages and a non-root user.
 
 **Important Note:** The `iron` and `iron-garden` images are currently **under development** and have not been heavily tested.  They may be unstable or contain significant bugs.
 
@@ -69,6 +70,8 @@ The following repositories demonstrate how to use these Docker images in real-wo
 *   **[6DOF_ObjectFollowing](https://github.com/soham2560/6DOF_ObjectFollowing)**: Implements a 6-DOF object following system using ROS 2 and the `humble-garden` image within a Dev Container.
 
 *   **[ros2_tutorial_repo](https://github.com/soham2560/ros2_tutorial_repo)**: A basic ROS 2 tutorial repository demonstrating fundamental concepts, configured with the `humble` image within a Dev Container.
+*   **[Husky Mobile robot](https://github.com/RoboticsIIITH/husky_ws)**: Basic ROS Noetic packages for running the Husky mobile robot on AMD64/x86 device.
+*   **[P3DX Mobile robot](https://github.com/rtarun1/P3DX-Docker)**: Basic ROS Noetic packages for running the P3DX mobile robot on AMD64/x86 device.
 
 ## Contributing
 
