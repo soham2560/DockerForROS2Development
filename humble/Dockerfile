@@ -16,7 +16,7 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 # handle default shell
 SHELL ["/bin/bash", "-c"]
-ENV SHELL /bin/bash
+ENV SHELL=/bin/bash
 
 # setup timezone
 RUN echo 'Asia/Kolkata' > /etc/timezone && \
@@ -45,8 +45,8 @@ RUN set -eux; \
 RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] http://packages.ros.org/ros2/ubuntu jammy main" > /etc/apt/sources.list.d/ros2-latest.list
 
 # setup environment
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
 # Create non root user with sudo privilege
 RUN groupadd --gid $USER_GID $USERNAME \
@@ -57,7 +57,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 USER $USERNAME
 
-ENV ROS_DISTRO $ROS_DISTRO
+ENV ROS_DISTRO=$ROS_DISTRO
 
 # install ros2 packages
 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
