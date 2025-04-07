@@ -59,7 +59,7 @@ ENV ROS_DISTRO=$ROS_DISTRO
 
 # install ros1 packages
 RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-    ros-$ROS_DISTRO-desktop-full=1.5.0-1* \
+    ros-$ROS_DISTRO-desktop=1.5.0-1* \
     && sudo rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
