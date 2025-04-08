@@ -5,7 +5,7 @@
 FROM ghcr.io/soham2560/iron:latest AS base
 
 # Environment setup
-ENV GZ_VERSION garden
+ENV GZ_VERSION=garden
 
 # install necessary tools
 RUN sudo apt-get update && sudo apt-get install --no-install-recommends -y \
