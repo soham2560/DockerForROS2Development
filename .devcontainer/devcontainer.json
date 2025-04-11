@@ -1,0 +1,64 @@
+{
+    "name": "testing",
+    "image": "ghcr.io/soham2560/humble-fortress",
+    "privileged": true,
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "actionButtons": {
+                    "defaultColor": "#ff0034",
+                    "loadNpmCommands": false,
+                    "reloadButton": "♻️",
+                    "commands": [
+                        {
+                            "name": "RUN Gazebo",
+                            "cwd": "/home",
+                            "color": "green",
+                            "singleInstance": true,
+                            "command": "ign gazebo shapes.sdf" 
+                        }
+                    ]
+                }
+            },
+            "extensions": [
+                "althack.ament-task-provider",
+                "betwo.b2-catkin-tools",
+                "DotJoshJohnson.xml",
+                "ms-azuretools.vscode-docker",
+                "ms-iot.vscode-ros",
+                "ms-python.python",
+                "ms-vscode.cpptools",
+                "redhat.vscode-yaml",
+                "seunlanlege.action-buttons",
+                "smilerobotics.urdf",
+                "streetsidesoftware.code-spell-checker",
+                "twxs.cmake",
+                "yzhang.markdown-all-in-one",
+                "zachflower.uncrustify",
+                "akhail.save-typing"
+            ]
+        }
+    },
+    "containerEnv": {
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
+        "XDG_RUNTIME_DIR": "${localEnv:XDG_RUNTIME_DIR}",
+        "PULSE_SERVER": "${localEnv:PULSE_SERVER}",
+        "QT_X11_NO_MITSHM": "1",
+        "LIBGL_ALWAYS_SOFTWARE": "1"
+    },
+    "runArgs": [
+        "--gpus=all",
+        "--cap-add=SYS_NICE",
+        "--ulimit=rtprio=99",
+        "--ulimit=rttime=-1",
+        "--ulimit=memlock=8428281856",
+        "--cap-add=all",
+        "--security-opt=seccomp:unconfined",
+        "--security-opt=apparmor:unconfined",
+        "--volume=/dev:/dev",
+        "--net=host",
+        "--ipc=host"
+    ],
+    "postStartCommand": "sudo chown -R container_user:container_user /run"
+}
