@@ -1,5 +1,5 @@
 ####################################
-# Ubuntu ROS2 Humble Gazebo Garden
+# Ubuntu ROS2 Humble Gazebo Fortress
 ####################################
 
 FROM ghcr.io/soham2560/humble:latest AS base
