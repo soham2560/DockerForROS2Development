@@ -8,7 +8,6 @@ The following Docker images are available:
 
 *   `humble`:  Based on `ubuntu:jammy`, this image includes ROS 2 Humble Hawksbill packages and a non-root user for enhanced security.
 *   `humble-garden`:  Extends the `humble` image and includes Gazebo Garden, a powerful 3D robotics simulator.
-*   `humble-fortress`:  Extends the `humble` image and includes Gazebo Fortress, which is the LTS and default sim for `humble`.
 *   `iron`: Based on `ubuntu:jammy`, this image includes ROS 2 Iron Irwini packages and a non-root user.
 *   `iron-garden`: Extends the `iron` image and includes Gazebo Garden.
 *   `noetic`: Based on `ubuntu:focal`, this image includes ROS Noetic Ninjemys packages and a non-root user.
