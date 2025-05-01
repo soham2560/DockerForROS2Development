@@ -52,20 +52,6 @@ docker build -t ghcr.io/soham2560/humble-garden -f humble-garden/Dockerfile humb
 * `-t ghcr.io/soham2560/<image_name>`:  Tags the image with the specified name and registry path.
 * `-f <image_name>/Dockerfile`: Specifies the path to the Dockerfile to use for building the image.
 * `<image_name>`:  The build context, which is the directory containing the Dockerfile and any other files needed for the build.
-* 
-
-### **⚠️ Network Issue with ROS Docker Builds on IIIT Wi-Fi**
-
-If you try to build a Docker image using **any ROS base image** while connected to  **IIIT college Wi-Fi** , the build **will fail** with a network error:
-
-```
-gpg: keyserver receive failed: Network is unreachable
-```
-
-This happens because IIIT Wi-Fi **blocks connections** to external GPG keyservers needed for verification.
-
-**✅ Solution:**
-Use a **mobile hotspot or another unrestricted network** to successfully build your base ROS image.
 
 ### 3. Pushing an Image (For Contributors)
 
