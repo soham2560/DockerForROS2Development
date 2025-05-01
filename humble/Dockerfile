@@ -10,7 +10,7 @@ ARG USER_GID=$USER_UID
 LABEL org.opencontainers.image.description="ROS2 Development Container"
 LABEL org.opencontainers.image.title="ROS2DevCon"
 LABEL org.opencontainers.image.vendor="Soham Patil"
-LABEL org.opencontainers.image.source="https://github.com/soham2560/DockerForROS2Development"
+LABEL org.opencontainers.image.source="https://github.com/soham2560/DockerForROSDevelopment"
 LABEL maintainer="sohampatil45939@gmail.com"
 LABEL org.opencontainers.image.licenses="MIT"
 
