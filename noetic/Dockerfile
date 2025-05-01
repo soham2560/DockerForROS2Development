@@ -10,7 +10,7 @@ ARG USER_GID=$USER_UID
 LABEL org.opencontainers.image.description="ROS1 Development Container"
 LABEL org.opencontainers.image.title="ROS1DevCon"
 LABEL org.opencontainers.image.vendor="Tarun R"
-LABEL org.opencontainers.image.source="https://github.com/soham2560/DockerForROS2Development"
+LABEL org.opencontainers.image.source="https://github.com/soham2560/DockerForROSDevelopment"
 LABEL maintainer="tarun.ramak@gmail.com"
 LABEL org.opencontainers.image.licenses="MIT"
 # handle default shell
