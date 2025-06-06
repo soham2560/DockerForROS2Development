@@ -27,22 +27,19 @@ RUN echo 'Asia/Kolkata' > /etc/timezone && \
 
 # install packages
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
+    ca-certificates \
+    curl \
     dirmngr \
     gnupg2 \
     && rm -rf /var/lib/apt/lists/*
 
-# setup keys
-RUN set -eux; \
-    key='C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654'; \
-    export GNUPGHOME="$(mktemp -d)"; \
-    gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "$key"; \
-    mkdir -p /usr/share/keyrings; \
-    gpg --batch --export "$key" > /usr/share/keyrings/ros2-latest-archive-keyring.gpg; \
-    gpgconf --kill all; \
-    rm -rf "$GNUPGHOME"
-
-# setup sources.list
-RUN echo "deb [ signed-by=/usr/share/keyrings/ros2-latest-archive-keyring.gpg ] http://packages.ros.org/ros2/ubuntu jammy main" > /etc/apt/sources.list.d/ros2-latest.list
+# Setup ROS Apt sources
+RUN curl -L -s -o /tmp/ros2-apt-source.deb https://github.com/ros-infrastructure/ros-apt-source/releases/download/1.1.0/ros2-apt-source_1.1.0.jammy_all.deb \
+    && echo "1600cb8cc28258a39bffc1736a75bcbf52d1f2db371a4d020c1b187d2a5a083b /tmp/ros2-apt-source.deb" | sha256sum --strict --check \
+    && apt-get update \
+    && apt-get install /tmp/ros2-apt-source.deb \
+    && rm -f /tmp/ros2-apt-source.deb \
+    && rm -rf /var/lib/apt/lists/*
 
 # setup environment
 ENV LANG=C.UTF-8
